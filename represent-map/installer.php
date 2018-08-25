@@ -6,7 +6,7 @@ if (!$msl){
 	echo mysqli_connect_error();
 }
 
-		if(!mysqli_stmt_num_rows($ms, mysqli_query($ms, "SHOW TABLES LIKE 'events'"))) {
+		if(!mysqli_stmt_num_rows($msl, mysqli_query($ms, "SHOW TABLES LIKE 'events'"))) {
 			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `events` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `id_eventbrite` varchar(15) NOT NULL,
@@ -25,7 +25,7 @@ if (!$msl){
 			}
 		}
 
-		if(!mysqli_result_num_rows($ms, mysqli_query($ms, "SHOW TABLES LIKE 'places'"))) {
+		if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'places'"))) {
 			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `places` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `approved` int(1) DEFAULT NULL,
@@ -47,14 +47,14 @@ if (!$msl){
 			}
 		}
 
-		if(!mysqli_result_num_rows($ms, mysqli_query($ms, "SHOW TABLES LIKE 'settings'"))) {
+		if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'settings'"))) {
 			if(!mysql_query("CREATE TABLE IF NOT EXISTS `settings` (
 			  `sg_lastupdate` int(14) NOT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1;")) {
 				die(mysqli_error($msl));
 			}
 
-			if(!mysqli_query($ms, "INSERT INTO `settings` (`sg_lastupdate`) VALUES (0)")) {
+			if(!mysqli_query($msl, "INSERT INTO `settings` (`sg_lastupdate`) VALUES (0)")) {
 				die(mysqli_error($msl));
 			}
 		}
