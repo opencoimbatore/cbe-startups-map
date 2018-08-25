@@ -6,8 +6,8 @@ if (!$msl){
 	echo mysqli_connect_error();
 }
 
-		if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'events'"))) {
-			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `events` (
+		//if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'events'"))) {
+			if(!mysqli_query("CREATE TABLE IF NOT EXISTS `events` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `id_eventbrite` varchar(15) NOT NULL,
 			  `title` varchar(200) NOT NULL,
@@ -23,10 +23,10 @@ if (!$msl){
 			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0;")) {
 				die(mysqli_error($msl));
 			}
-		}
+		//}
 
-		if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'places'"))) {
-			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `places` (
+		//if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'places'"))) {
+			if(!mysqli_query("CREATE TABLE IF NOT EXISTS `places` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `approved` int(1) DEFAULT NULL,
 			  `title` varchar(100) NOT NULL,
@@ -45,10 +45,10 @@ if (!$msl){
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;")) {
 				die(mysqli_error($msl));
 			}
-		}
+		//}
 
-		if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'settings'"))) {
-			if(!mysql_query("CREATE TABLE IF NOT EXISTS `settings` (
+		//if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'settings'"))) {
+			if(!mysqli_query("CREATE TABLE IF NOT EXISTS `settings` (
 			  `sg_lastupdate` int(14) NOT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1;")) {
 				die(mysqli_error($msl));
@@ -57,7 +57,7 @@ if (!$msl){
 			if(!mysqli_query($msl, "INSERT INTO `settings` (`sg_lastupdate`) VALUES (0)")) {
 				die(mysqli_error($msl));
 			}
-		}
+		//}
 
 	// if no errors, then setup completed message
 	if(!$error) {
