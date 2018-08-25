@@ -178,9 +178,9 @@ include_once "header.php";
               );
           $marker_id = 0;
           foreach($types as $type) {
-            $places = mysql_query("SELECT * FROM places WHERE approved='1' AND type='$type[0]' ORDER BY title");
-            $places_total = mysql_num_rows($places);
-            while($place = mysql_fetch_assoc($places)) {
+            $places = mysqli_query($msl,"SELECT * FROM places WHERE approved='1' AND type='$type[0]' ORDER BY title");
+            $places_total = mysqli_num_rows($msl,$places);
+            while($place = mysqli_fetch_assoc($msl,$places)) {
               $place[title] = htmlspecialchars_decode(addslashes(htmlspecialchars($place[title])));
               $place[description] = str_replace(array("\n", "\t", "\r"), "", htmlspecialchars_decode(addslashes(htmlspecialchars($place[description]))));
               $place[uri] = addslashes(htmlspecialchars($place[uri]));
@@ -195,9 +195,9 @@ include_once "header.php";
           }
           if($show_events == true) {
             $place[type] = "event";
-            $events = mysql_query("SELECT * FROM events WHERE start_date > ".time()." AND start_date < ".(time()+9676800)." ORDER BY id DESC");
-            $events_total = mysql_num_rows($events);
-            while($event = mysql_fetch_assoc($events)) {
+            $events = mysqli_query($msl,"SELECT * FROM events WHERE start_date > ".time()." AND start_date < ".(time()+9676800)." ORDER BY id DESC");
+            $events_total = mysqli_num_rows($msl,$events);
+            while($event = mysqli_fetch_assoc($msl,$events)) {
               $event[title] = htmlspecialchars_decode(addslashes(htmlspecialchars($event[title])));
               $event[description] = htmlspecialchars_decode(addslashes(htmlspecialchars($event[description])));
               $event[uri] = addslashes(htmlspecialchars($event[uri]));
