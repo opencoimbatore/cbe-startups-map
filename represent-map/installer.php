@@ -6,7 +6,7 @@ if (!$msl){
 	echo mysqli_connect_error();
 }
 
-		if(!mysqli_stmt_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'events'"))) {
+		if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'events'"))) {
 			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `events` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `id_eventbrite` varchar(15) NOT NULL,
