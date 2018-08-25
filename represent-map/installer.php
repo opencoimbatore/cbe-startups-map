@@ -1,11 +1,10 @@
 <?
 $file = 'include/db.php';
-		mysql_connect($db_host, $db_user, $db_pass) or die(mysql_error());
-		mysql_connect($db_host, $db_user, $db_pass) or die(mysql_error());
-		mysql_select_db($db_name) or die(mysql_error());
+		mysqli_real_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
+		mysqli_select_db($db_name) or die(mysqli_error());
 
-		if(!mysql_num_rows( mysql_query("SHOW TABLES LIKE 'events'"))) {
-			if(!mysql_query("CREATE TABLE IF NOT EXISTS `events` (
+		if(!mysqli_stmt_num_rows( mysql_query("SHOW TABLES LIKE 'events'"))) {
+			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `events` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `id_eventbrite` varchar(15) NOT NULL,
 			  `title` varchar(200) NOT NULL,
@@ -19,12 +18,12 @@ $file = 'include/db.php';
 			  `address` varchar(200) NOT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0;")) {
-				die(mysql_error());
+				die(mysqli_error());
 			}
 		}
 
-		if(!mysql_num_rows( mysql_query("SHOW TABLES LIKE 'places'"))) {
-			if(!mysql_query("CREATE TABLE IF NOT EXISTS `places` (
+		if(!mysqli_result_num_rows( mysqli_real_query("SHOW TABLES LIKE 'places'"))) {
+			if(!mysqli_real_query("CREATE TABLE IF NOT EXISTS `places` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `approved` int(1) DEFAULT NULL,
 			  `title` varchar(100) NOT NULL,
@@ -41,19 +40,19 @@ $file = 'include/db.php';
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `id` (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;")) {
-				die(mysql_error());
+				die(mysqli_error());
 			}
 		}
 
-		if(!mysql_num_rows( mysql_query("SHOW TABLES LIKE 'settings'"))) {
+		if(!mysqli_result_num_rows( mysqli_real_query("SHOW TABLES LIKE 'settings'"))) {
 			if(!mysql_query("CREATE TABLE IF NOT EXISTS `settings` (
 			  `sg_lastupdate` int(14) NOT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1;")) {
-				die(mysql_error());
+				die(mysqli_error());
 			}
 
-			if(!mysql_query("INSERT INTO `settings` (`sg_lastupdate`) VALUES (0)")) {
-				die(mysql_error());
+			if(!mysqli_real_query("INSERT INTO `settings` (`sg_lastupdate`) VALUES (0)")) {
+				die(mysqli_error());
 			}
 		}
 
