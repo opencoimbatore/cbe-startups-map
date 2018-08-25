@@ -1,6 +1,7 @@
 <?
-$file = 'include/db.php';
-		$msl=mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+include "./include/db.php";
+$msl=mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
 if (!$msl){
 	echo mysqli_connect_error();
 }
