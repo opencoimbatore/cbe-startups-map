@@ -2,7 +2,7 @@
 $file = 'include/db.php';
 		$msl=mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$msl){
-	echo mysqli_error($msl);
+	echo mysqli_connect_error();
 }
 
 		if(!mysqli_stmt_num_rows( mysql_query("SHOW TABLES LIKE 'events'"))) {
