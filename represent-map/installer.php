@@ -1,59 +1,8 @@
 <?
-if(isset($_POST['installer_submitted'])) {
-	// validate fields
-	$error = '';
-	if(!$_POST['db_hostname']) $error .= 'Please enter a database hostname.<br />';
-	if(!$_POST['db_name']) $error .= 'Please enter a database name.<br />';
-	if(!$_POST['db_username']) $error .= 'Please enter a database username.<br />';
-	if(!$_POST['db_password']) $error .= 'Please enter a database password.<br />';
-	if(!$_POST['admin_username']) $error .= 'Please enter an administrative username.<br />';
-	if(!$_POST['admin_pass']) $error .= 'Please enter an administrative password.<br />';
-
-	// if no basic validation errors, check to make sure database info actually works
-	if(!$error) {
-		if(!@mysql_connect($_POST['db_hostname'], $_POST['db_username'], $_POST['db_password'])) $error .= 'Your database host, username, or password information were not correct.<br />';
-		if(!$error) {
-			if(!@mysql_select_db($_POST['db_name'])) $error .= 'Your database name is not valid/could not be found.<br />';
-		}
-	}
-
-	// if not errors, proceed with installer by first creating db file
-	if(!$error) {
-		$file = 'include/db.php';
-		if(!$file_handle = fopen($file, 'w')) {
-			$error .= '
-				<p style="color:red;"><strong>We were unable to update the "/install" directory\'s permissions, which is required for this installer to run. Please do so manually using the below instructions:</p>
-				<p><a href="http://www.cubecartforums.org/docs/appendix/how-to-chmod-directories.html" target="_blank">http://www.cubecartforums.org/docs/appendix/how-to-chmod-directories.html</a></p>
-			';
-		}
-		fclose($file_handle);
-	}
-
-	// if file was created succesfully, write to it:
-	if(!$error) {
-		$config_file_contents = file_get_contents('include/db_example.php');
-		$config_file_contents = str_replace('[db_host]',$_POST['db_hostname'],$config_file_contents);
-		$config_file_contents = str_replace('[db_name]',$_POST['db_name'],$config_file_contents);
-		$config_file_contents = str_replace('[db_user]',$_POST['db_username'],$config_file_contents);
-		$config_file_contents = str_replace('[db_pass]',$_POST['db_password'],$config_file_contents);
-		$config_file_contents = str_replace('[admin_user]',$_POST['admin_username'],$config_file_contents);
-		$config_file_contents = str_replace('[admin_pass]',$_POST['admin_pass'],$config_file_contents);
-
-		$file = 'include/db.php';
-		$file_handle = fopen($file, 'w');
-		if(!fwrite($file_handle, $config_file_contents)) {
-			$error .= '
-				<p style="color:red;"><strong>We were unable to update the "/install" directory\'s permissions, which is required for this installer to run. Please do so manually using the below instructions:</p>
-				<p><a href="http://www.cubecartforums.org/docs/appendix/how-to-chmod-directories.html" target="_blank">http://www.cubecartforums.org/docs/appendix/how-to-chmod-directories.html</a></p>
-			';
-		}
-		fclose($file_handle);
-	}
-
-	// if config file is created, lets connect to the database and install our tables
-	if(!$error) {
-		mysql_connect($_POST['db_hostname'], $_POST['db_username'], $_POST['db_password']) or die(mysql_error());
-		mysql_select_db($_POST['db_name']) or die(mysql_error());
+$file = 'include/db.php';
+		mysql_connect($db_host, $db_user, $db_pass) or die(mysql_error());
+		mysql_connect($db_host, $db_user, $db_pass) or die(mysql_error());
+		mysql_select_db($db_name) or die(mysql_error());
 
 		if(!mysql_num_rows( mysql_query("SHOW TABLES LIKE 'events'"))) {
 			if(!mysql_query("CREATE TABLE IF NOT EXISTS `events` (
@@ -107,13 +56,11 @@ if(isset($_POST['installer_submitted'])) {
 				die(mysql_error());
 			}
 		}
-	}
 
 	// if no errors, then setup completed message
 	if(!$error) {
 		$complete = 1;
 	}
-}
 ?>
 <html>
 	<head>
