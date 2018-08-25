@@ -1,6 +1,11 @@
 <?php
 include "./include/db.php";
 
+echo $db_host;
+echo $db_user;
+echo $db_pass;
+echo $db_name;
+
 // connect to db
 $msl = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$msl) {
