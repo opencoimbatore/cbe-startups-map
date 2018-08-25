@@ -7,7 +7,7 @@ if (!$msl){
 }
 
 		//if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'events'"))) {
-			if(!mysqli_query("CREATE TABLE IF NOT EXISTS `events` (
+			if(!mysqli_query($msl,"CREATE TABLE IF NOT EXISTS `events` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `id_eventbrite` varchar(15) NOT NULL,
 			  `title` varchar(200) NOT NULL,
@@ -26,7 +26,7 @@ if (!$msl){
 		//}
 
 		//if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'places'"))) {
-			if(!mysqli_query("CREATE TABLE IF NOT EXISTS `places` (
+			if(!mysqli_query($msl,"CREATE TABLE IF NOT EXISTS `places` (
 			  `id` int(9) NOT NULL AUTO_INCREMENT,
 			  `approved` int(1) DEFAULT NULL,
 			  `title` varchar(100) NOT NULL,
@@ -48,7 +48,7 @@ if (!$msl){
 		//}
 
 		//if(!mysqli_result_num_rows($msl, mysqli_query($msl, "SHOW TABLES LIKE 'settings'"))) {
-			if(!mysqli_query("CREATE TABLE IF NOT EXISTS `settings` (
+			if(!mysqli_query($msl,"CREATE TABLE IF NOT EXISTS `settings` (
 			  `sg_lastupdate` int(14) NOT NULL
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1;")) {
 				die(mysqli_error($msl));
