@@ -1,21 +1,24 @@
 <?php
+
+$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
 // mysql hostname
-$db_host = "[db_host]";
+$db_host = $url["host"];
 
 // database name
-$db_name = "[db_name]";
+$db_name = substr($url["path"], 1);
 
 // database user name
-$db_user = "[db_user]";
+$db_user = $url["user"];
 
 // database password
-$db_pass = "[db_pass]";
+$db_pass = $url["pass"];
 
 // admin username
-$admin_user = "[admin_user]";
+$admin_user = getenv("APP_ADMIN")
 
 // admin password
-$admin_pass = "[admin_pass]";
+$admin_pass = getenv("APP_PWD")
 
 
 // StartupGenome.com integration (optional)
